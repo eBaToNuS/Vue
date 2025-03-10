@@ -2,10 +2,9 @@ const App = {
   data() {
     return {
       counter: 3,
-      /*   appTitle: 0, */
+      appTitle: "Счетчик",
     };
   },
 };
 
-const app = Vue.createApp(App);
-app.mount("#app");
+Vue.createApp(App).mount("#app");
