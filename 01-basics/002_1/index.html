@@ -31,11 +31,13 @@
             class="list-item"
             v-for="(myNote, index) in notes"
             :class="myNote.length<5?'primary':'bold'"
-            :class="{ 
-              'primary': true
-              'bold': myNote.length<5
+            :class="{                                   
+              'primary': true,
+              'bold': myNote.length<5                                 
             }"
+            :class="[primary, {'bold': myNote.length<5 }]"
           >
+            <!-- Три разных способа изменения стилей -->
             ({{index + 1}}){{toUpperCase(myNote)}}
             <button class="btn danger" v-on:click="deleteButton(index)">
               Удалить
