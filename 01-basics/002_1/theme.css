@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 * {
   box-sizing: border-box;
@@ -61,10 +61,12 @@ h3 {
 
 .primary {
   color: #42b983;
+  display: inline-flex;
 }
 
 .danger {
   color: #e53935;
+  display: inline-flex;
 }
 
 .btn {
