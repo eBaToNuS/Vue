@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Counter</title>
-  <link rel="stylesheet" href="theme.css" />
-</head>
-<body>
-<div class="container pt-5" id="app">
-  <div class="card center">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Counter</title>
+    <link rel="stylesheet" href="theme.css" />
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container pt-5" id="app" v-cloak>
+      <div class="card center">
+        <div v-html="myHtml"></div>
+        <h1>{{title}}</h1>
+        <h1 v-text="title"></h1>
+        <h1 v-once>{{title}}</h1>
+        <h1 v-pre>{{title}}</h1>
 
-  </div>
-</div>
+        <button class="btn" @click="title = 'Другое название'">Изменить</button>
+        <ul class="list">
+          <li
+            class="list-item"
+            v-for="(item, index) in arr"
+            @click="arr.splice(index, 1)"
+            >
+            <strong>{{index}}</strong> <input type="text" @click.stop :key="item">         
+          </li>
+          <p v-show="arr.length === 0">Элементов нет</p>
+      </div>
+    </div>
 
-<script src="https://unpkg.com/vue@next"></script>
-<script src="app.js"></script>
-</body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
