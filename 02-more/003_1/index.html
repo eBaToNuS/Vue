@@ -24,12 +24,15 @@
         <ul class="list">
           <li
             class="list-item"
-            v-for="(item, index) in arr"
+            v-for="(item, index) in evenItems"
             @click="arr.splice(index, 1)"
             >
-            <strong>{{index}}</strong> <input type="text" @click.stop :key="item">         
+            <strong>{{item}}</strong> <input type="text" @click.stop :key="item">         
           </li>
           <p v-show="arr.length === 0">Элементов нет</p>
+          <div class="form-control">
+            <input type="text" ref="myInput" @keyup.enter="addItems($event)">
+          </div>
       </div>
     </div>
 
