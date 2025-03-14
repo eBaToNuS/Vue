@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container pt-5 center" id="app">
+      <input
+        type="text"
+        :placeholder="myPlaceholder"
+        v-model="myNote"
+        @keyup.enter="addNewNotes"
+      />
+      <button class="btn">
+        <p>Добавить</p>
+      </button>
+      <div class="container pt-5 center">
+        <ul class="list">
+          <li
+            class="list-item btn"
+            v-for="(item, index) in notes"
+            @click="deleteNote(index)"
+          >
+            {{item}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
