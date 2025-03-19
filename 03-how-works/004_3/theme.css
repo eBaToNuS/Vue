@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 
 * {
   box-sizing: border-box;
@@ -72,6 +72,7 @@ h3 {
 }
 
 .btn {
+  user-select: none;
   color: #42b983;
   position: relative;
   place-content: center;
@@ -97,9 +98,9 @@ h3 {
 }
 
 .btn:disabled {
-  background: #eee!important;
-  border: #ddd!important;
-  color: #aaa!important;
+  background: #eee !important;
+  border: #ddd !important;
+  color: #aaa !important;
   cursor: not-allowed;
 }
 
@@ -176,6 +177,7 @@ h3 {
 }
 
 .list-item {
+  user-select: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -187,6 +189,7 @@ h3 {
 }
 
 .steps-list {
+  user-select: none;
   list-style: none;
   margin: 0;
   margin-bottom: 1rem;
@@ -196,22 +199,29 @@ h3 {
 }
 
 .steps-item span {
+  user-select: none;
   cursor: pointer;
   border-radius: 50%;
-  padding: .75rem 1rem;
-  font-size: .75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
   background: #cccccc;
 }
 
 .steps-content {
   margin-bottom: 1rem;
+  min-height: 78px;
 }
 
-.steps-item.active span, .steps-item.done span {
+.steps-item.active span,
+.steps-item.done span {
   background: #42b983;
 }
 
 .steps-item.active span {
   font-weight: bold;
   color: #ffffff;
+}
+
+[v-cloak] {
+  display: none;
 }

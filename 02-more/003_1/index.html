@@ -14,7 +14,7 @@
   <body>
     <div class="container pt-5" id="app" v-cloak>
       <div class="card center">
-        <!-- <div v-html="myHtml"></div>
+        <div v-html="myHtml"></div>
         <h1>{{title}}</h1>
         <h1 v-text="title"></h1>
         <h1 v-once>{{title}}</h1>
@@ -29,7 +29,7 @@
             >
             <strong>{{item}}</strong> <input type="text" @click.stop :key="item">         
           </li>
-          <p v-show="arr.length === 0">Элементов нет</p> -->
+          <p v-show="arr.length === 0">Элементов нет</p>
         <div class="form-control">
           <input type="text" @keyup.enter="addItem()" ref="myInput" />
           <ul>
