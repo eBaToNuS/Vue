@@ -1,7 +1,8 @@
 <template>
   <div class="card">
     <h3>{{ title }}</h3>
-    <button class="btn" @click="isOpen = !isOpen">Открыть</button>
+    <button class="btn" @click="open">Открыть</button>
+    <!--  -->
     <p v-if="isOpen">
       {{ text }}
     </p>
@@ -10,16 +11,29 @@
 
 <script>
 export default {
-  /* props: ["title", "text"], */
   props: {
-    title: String,
-    text: String,
+    title: { type: String, required: true },
+    text: {
+      type: String,
+      required: false,
+      default: "Дополнительной информации нет",
+      validator(value) {
+        console.log(value);
+        return true;
+      },
+    },
+    /*     isOpen: Boolean , */
   },
   data() {
     return {
-      item: "Item string",
       isOpen: false,
     };
+  },
+  methods: {
+    open() {
+      this.isOpen = !this.isOpen;
+      this.$emit("open-news");
+    },
   },
 };
 </script>
