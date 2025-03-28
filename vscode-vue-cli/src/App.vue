@@ -1,46 +1,50 @@
 <template>
-  <div class="container pt-1">
+  <div class="container tp-1">
     <div class="card">
-      <h2>Актуальные новости на {{ now }}</h2>
-      <span>Открыто: {{ openRate }}</span>
+      <async-component></async-component>
+      <h2>Динамические и асинхронные компоненты</h2>
+      <app-button ref="myBtn" @action="active = 'one'" :color="oneColor"
+        >One</app-button
+      >
+      <app-button @action="active = 'two'" :color="twoColor">Two</app-button>
     </div>
-    <app-news
-      v-for="item in news"
-      :key="item.id"
-      :title="item.title"
-      :text="item.text"
-      @open-news="openRate++"
-    >
-      <!--  -->
-    </app-news>
+    <!--     <app-text-one v-if="active == 'one'"></app-text-one>
+    <app-text-two v-else-if="active == 'two'"></app-text-two> -->
+    <keep-alive><component :is="componentName"></component></keep-alive>
   </div>
 </template>
-Lorem, ipsum dolor. Lorem, ipsum dolor.
+
 <script>
-import AppNews from "./AppNews.vue";
+import AppButton from "./appButton.vue";
+import AppTextOne from "./AppTextOne.vue";
+import AppTextTwo from "./AppTextTwo.vue";
 export default {
   data() {
     return {
-      openRate: 0,
-      now: new Date().toLocaleDateString(),
-      news: [
-        {
-          title: "Джордж Вашингтон трагично погиб",
-          text: "Был застрелен Д'Антесом" /* isOpen: false */,
-        },
-        {
-          title: "Путин выиграл войну",
-          text: "Одержал вверх над Украиной" /* isOpen: false */,
-        },
-        { title: "Я лучше всех" /* isOpen: false  */ },
-      ],
+      active: "one",
     };
   },
-  methods() {},
-  components: {
-    appNews: AppNews,
+  computed: {
+    // componentName() {
+    //   return "app-text-" + this.active;
+    // },
+    componentName: {
+      get() {
+        return "app-text-" + this.active;
+      },
+      set(value) {
+        console.log("componentsName", value);
+      },
+    },
+    oneColor() {
+      return this.active === "one" ? "primary" : "";
+    },
+    twoColor() {
+      return this.active === "two" ? "primary" : "";
+    },
   },
+  components: { AppButton, AppTextOne, AppTextTwo },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
