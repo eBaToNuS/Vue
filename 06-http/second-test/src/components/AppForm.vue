@@ -15,37 +15,38 @@
       <textarea v-model="value" id="value" rows="3"></textarea>
     </div>
 
-    <button class="btn primary" :disabled="!isValid">Добавить</button>
+    <button class="btn primary" :disabled="btnValid">Добавить</button>
   </form>
 </template>
 
 <script>
+/* import axios from "axios"; */
 export default {
-  emits: ["block-added"],
+  emits: ["submit"],
   data() {
     return {
       type: "title",
+      name: "Nick",
       value: "",
+      isValid: true,
+      i: 0,
     };
   },
-  computed: {
-    isValid() {
-      return this.value.length > 3;
-    },
-  },
+
   methods: {
     submit() {
-      this.$emit("block-added", {
-        type: this.type,
-        value: this.value,
-        id: Date.now(),
-      });
-
+      /*       console.log(this.value);
+      console.log(this.type); */
+      this.$emit("submit", this.value, this.type);
       this.value = "";
-      this.type = "title";
+    },
+  },
+  computed: {
+    btnValid() {
+      return this.value.length < 4 ? true : false;
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style lang="css" scoped></style>

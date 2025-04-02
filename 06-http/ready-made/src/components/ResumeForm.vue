@@ -21,31 +21,33 @@
 
 <script>
 export default {
-  emits: ["block-added"],
+  emits: ['block-added'],
   data() {
     return {
-      type: "title",
-      value: "",
-    };
+      type: 'title',
+      value: ''
+    }
   },
   computed: {
     isValid() {
-      return this.value.length > 3;
-    },
+      return this.value.length > 3
+    }
   },
   methods: {
     submit() {
-      this.$emit("block-added", {
+      this.$emit('block-added', {
         type: this.type,
         value: this.value,
-        id: Date.now(),
-      });
+        id: Date.now()
+      })
 
-      this.value = "";
-      this.type = "title";
-    },
-  },
-};
+      this.value = ''
+      this.type = 'title'
+    }
+  }
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
