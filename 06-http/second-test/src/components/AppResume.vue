@@ -1,30 +1,41 @@
 <template>
   <div class="card card-w70">
-    <div class="" v-if="arrayText.length !== 0">
-      <h1>Резюме Nickname</h1>
-      <div class="avatar">
-        <img
-          src="https://cdn.dribbble.com/users/5592443/screenshots/14279501/drbl_pop_r_m_rick_4x.png"
-        />
+    <div v-if="blocks.length !== 0">
+      <div class="" :key="block.id" v-for="block in blocks">
+        <component
+          :is="'Resume' + block.type"
+          :key="appKey"
+          :value="block.value"
+        >
+          <h1>Да</h1>
+        </component>
       </div>
-      <h2>Опыт работы</h2>
-      <p v-for="text in arrayText" :key="text">
-        {{ text }}
-      </p>
     </div>
     <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
   </div>
 </template>
 
 <script>
+import ResumeAvatar from "./parts/ResumeAvatar.vue";
+import ResumeSubtitle from "./parts/ResumeSubtitle.vue";
+import ResumeText from "./parts/ResumeText.vue";
+import ResumeTitle from "./parts/ResumeTitle.vue";
+
 export default {
   data() {
     return {};
   },
   props: {
-    arrayText: Array,
+    blocks: Array,
     type: String,
   },
+  methods: {
+    appKey() {
+      console.log(this.blocks);
+      return this.blocks.id;
+    },
+  },
+  components: { ResumeAvatar, ResumeSubtitle, ResumeText, ResumeTitle },
 };
 </script>
 

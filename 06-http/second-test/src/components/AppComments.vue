@@ -2,18 +2,19 @@
   <div>
     <div class="container">
       <p>
-        <button class="btn primary">Загрузить комментарии</button>
+        <button class="btn primary" @click="$emit('loadComments')">
+          Загрузить комментарии
+        </button>
       </p>
-      <div class="card">
+      <div v-if="comments.length" class="card">
         <h2>Комментарии</h2>
         <ul class="list">
-          <li class="list-item">
+          <li class="list-item" :key="comment.id" v-for="comment in comments">
             <div>
-              <p><strong>test@microsoft.com</strong></p>
-              <small
-                >Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Eligendi, reiciendis.</small
-              >
+              <p>
+                <strong>{{ comment.email }}</strong>
+              </p>
+              <small>{{ comment.body }}</small>
             </div>
           </li>
         </ul>
@@ -23,7 +24,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  emits: ["loadComments"],
+  props: { comments: Array },
+  data() {
+    return {
+      clickLoad: false,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>

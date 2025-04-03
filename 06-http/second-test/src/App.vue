@@ -2,31 +2,45 @@
   <div>
     <div class="container column">
       <app-form @submit="addText"></app-form>
-      <app-resume :arrayText="values" :type="type"></app-resume>
+      <app-resume :blocks="blocks"></app-resume>
     </div>
-    <app-comments></app-comments>
+    <app-loader v-if="loading === true"></app-loader>
+    <app-comments
+      v-else
+      :comments="comments"
+      @loadComments="loadComments"
+    ></app-comments>
   </div>
 </template>
 
 <script>
 import AppComments from "./components/AppComments.vue";
 import AppForm from "./components/AppForm.vue";
+import AppLoader from "./components/AppLoader.vue";
 import AppResume from "./components/AppResume.vue";
 export default {
   data() {
     return {
-      values: [],
-      type: "Заголовок",
+      blocks: [],
+      loading: false,
+      comments: [],
     };
   },
   methods: {
-    addText(value, type) {
-      this.values.push(value);
-      this.type = type;
-      console.log(this.type);
+    addText(value, type, id) {
+      this.blocks.push({ value: value, type: type, id: id });
+      console.log(this.blocks);
+    },
+    async loadComments() {
+      this.loading = true;
+      const res = await fetch(
+        "https://jsonplaceholder.typicode.com/comments?_limit=42"
+      );
+      this.comments = await res.json();
+      this.loading = false;
     },
   },
-  components: { AppForm, AppResume, AppComments },
+  components: { AppForm, AppResume, AppComments, AppLoader },
 };
 </script>
 

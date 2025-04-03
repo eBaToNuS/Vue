@@ -3,10 +3,10 @@
     <div class="form-control">
       <label for="type">Тип блока</label>
       <select id="type" v-model="type">
-        <option value="title">Заголовок</option>
-        <option value="subtitle">Подзаголовок</option>
-        <option value="avatar">Аватар</option>
-        <option value="text">Текст</option>
+        <option value="Title">Заголовок</option>
+        <option value="Subtitle">Подзаголовок</option>
+        <option value="Avatar">Аватар</option>
+        <option value="Text">Текст</option>
       </select>
     </div>
 
@@ -25,19 +25,18 @@ export default {
   emits: ["submit"],
   data() {
     return {
-      type: "title",
+      type: "Title",
       name: "Nick",
       value: "",
       isValid: true,
-      i: 0,
+      id: "",
     };
   },
 
   methods: {
     submit() {
-      /*       console.log(this.value);
-      console.log(this.type); */
-      this.$emit("submit", this.value, this.type);
+      this.id = Date.now();
+      this.$emit("submit", this.value, this.type, this.id);
       this.value = "";
     },
   },
