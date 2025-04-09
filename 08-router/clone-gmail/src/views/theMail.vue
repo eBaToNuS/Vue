@@ -1,8 +1,8 @@
 <template>
   <div class="card no-padding">
     <div class="card-nav">
-      <ul class="list">
-        <li class="list-item" v-for="email in emails" :key="email.id">
+      <ul class="list" v-for="email in emails" :key="email.id">
+        <li class="list-item" @click="$router.push('/mail/' + email.id)">
           <router-link :to="'/mail/' + email.id">
             {{ email.theme }}
           </router-link>
@@ -11,7 +11,7 @@
     </div>
     <div class="card-body">
       <router-view></router-view>
-      <!--       <app-email-body :mail-id="$route.params.mailId"></app-email-body> -->
+      <!-- <app-email-body :mail-id="$route.params.mailId"></app-email-body> -->
     </div>
   </div>
 </template>
@@ -21,9 +21,9 @@
 
 export default {
   inject: ["emails"],
-  components: {
+  /*   components: {
     AppEmailBody,
-  },
+  }, */
 };
 </script>
 
