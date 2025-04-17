@@ -1,30 +1,32 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Tasks from '../views/Tasks.vue'
+import { createRouter, createWebHistory } from "vue-router";
+import NewPage from "@/views/NewPage.vue";
+import TaskPage from "@/views/TaskPage.vue";
+import TasksPage from "@/views/TasksPage.vue";
 
 const routes = [
   {
-    path: '/',
-    name: 'Tasks',
-    component: Tasks
+    path: "/",
+    name: "Tasks",
+    component: TasksPage,
   },
   {
-    path: '/new',
-    name: 'New',
-    component: () => import('../views/New.vue')
+    path: "/new",
+    name: "New",
+    component: NewPage,
   },
   {
-    path: '/task/:id',
-    name: 'Task',
+    path: "/task/:id",
+    name: "Task",
     props: true,
-    component: () => import('../views/Task.vue')
-  }
-]
+    component: TaskPage,
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-  linkActiveClass: 'active',
-  linkExactActiveClass: 'active'
-})
+  linkActiveClass: "active",
+  linkExactActiveClass: "active",
+});
 
-export default router
+export default router;
