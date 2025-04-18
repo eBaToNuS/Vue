@@ -1,5 +1,5 @@
 <template>
-  <form class="card" @submit.prevent="console.log('sub')">
+  <form class="card" @submit.prevent="submit">
     <h1>Создать новую задачу</h1>
     <div class="form-control">
       <label for="title">Название</label>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, provide } from "vue";
 export default {
   setup() {
     const title = ref("");
@@ -34,6 +34,12 @@ export default {
       }
       return true;
     });
+
+    function submit() {
+      provide("title", title);
+      provide("date", date);
+      provide("description", description);
+    }
 
     watch(title, (newV) => {
       console.log(newV);
@@ -50,6 +56,7 @@ export default {
       disabled,
       date,
       description,
+      submit,
     };
   },
 };
