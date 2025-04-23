@@ -6,7 +6,7 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: "/", component: TasksPage, alias: "/:notFound(.*)" },
-    { path: "/task", component: TaskPage },
+    { path: "/TaskPage", component: TaskPage },
     { path: "/NewPage", component: NewPage },
   ],
   linkActiveClass: "active",
