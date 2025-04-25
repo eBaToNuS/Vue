@@ -2,12 +2,12 @@
   <div>
     <h1 class="text-white center" v-if="!tasks.length">Задач пока нет</h1>
     <!-- <template> -->
-    <h3 class="text-white">Всего активных задач: {{ tasks.length }}</h3>
+    <h3 class="text-white">Всего активных задач: {{ taskIsActive }}</h3>
 
     <div class="card" v-for="task in tasks" :key="task.id">
       <h2 class="card-title">
         {{ task.title }}
-        <AppStatus :type="'done'" />
+        <AppStatus :type="'done'" :nameStatus="task.nameStatus" />
       </h2>
       <p>
         <strong>
@@ -21,17 +21,20 @@
     <!-- </template> -->
   </div>
 </template>
-np
+
 <script>
 import AppStatus from "../components/AppStatus";
-import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import { ref, /* watch, */ onMounted, computed } from "vue";
 import { useRouter /* useRoute */ } from "vue-router";
 export default {
   setup() {
+    const store = useStore();
     const router = useRouter();
     // const route = useRoute();
     const tasks = ref([]); // Реактивный массив для хранения задач
 
+    // const active = ref("active");
     const fetchTasks = async () => {
       try {
         const response = await fetch(
@@ -48,7 +51,6 @@ export default {
           ...task,
         }));
         console.log(tasks.value.length);
-
         console.log("Задачи загружены:", tasks.value);
       } catch (error) {
         console.error("Ошибка загрузки:", error);
@@ -59,12 +61,28 @@ export default {
     const viewTask = (taskId) => {
       router.push({ path: "/TaskPage", query: { id: taskId } });
     };
+    const updateActiveTasks = () => {
+      const activeCount = tasks.value.filter(
+        (task) => task.nameStatus === "active"
+      ).length;
+      store.commit("SET_ACTIVE_TASKS", activeCount);
+    };
+    const taskIsActive = computed(() => store.getters.taskIsActive);
+    /*    watch(task, (newV) => {
+      console.log(newV);
+    }); */
 
     // Вызываем при монтировании компонента
-    onMounted(fetchTasks);
+
+    onMounted(() => {
+      fetchTasks().then(() => {
+        updateActiveTasks();
+      });
+    });
     return {
       tasks,
       viewTask,
+      taskIsActive,
     };
   },
   components: { AppStatus },

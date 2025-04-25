@@ -47,7 +47,7 @@ export default {
               title: title.value,
               date: date.value,
               description: description.value,
-              createdAt: new Date().toISOString(), // Добавляем метку времени
+              nameStatus: "active",
             }),
           }
         );

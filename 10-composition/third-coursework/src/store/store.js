@@ -1,14 +1,15 @@
 import { createStore } from "vuex";
 
 export const store = createStore({
-  state() {
-    return {
-      numberisActive: 0,
-    };
+  state: {
+    taskIsActive: 0,
+  },
+  mutations: {
+    SET_ACTIVE_TASKS(state, count) {
+      state.taskIsActive = count;
+    },
   },
   getters: {
-    numberisActive(state) {
-      return state.numberisActive;
-    },
+    taskIsActive: (state) => state.taskIsActive,
   },
 });
