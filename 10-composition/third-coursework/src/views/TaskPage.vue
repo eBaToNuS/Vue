@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card">
+    <div class="card" v-if="task">
       <h2>{{ task.title }}</h2>
       <p>
         <strong>Статус</strong>:
@@ -23,18 +23,22 @@
         </button>
       </div>
     </div>
+    <div class="card center" v-else>
+      <strong> Задачи с id = {{ taskId }} нет</strong>
+    </div>
   </div>
 </template>
 
 <script>
 import AppStatus from "../components/AppStatus";
+import { useTaskStatus } from "@/composables/useTaskStatus";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 export default {
   setup() {
     const route = useRoute();
     const taskId = route.query.id; // Получаем ID из URL
-    const tasks = ref([]); // Реактивный массив для хранения задач
+
     const task = ref("");
     const fetchTasks = async () => {
       try {
@@ -61,37 +65,7 @@ export default {
         alert("Не удалось загрузить задачи");
       }
     };
-
-    const changeStatus = async (taskId, newStatus) => {
-      try {
-        // 1. Обновляем локально
-        const taskIndex = tasks.value.findIndex((t) => t.id === taskId);
-        if (taskIndex !== -1) {
-          tasks.value[taskIndex].nameStatus = newStatus;
-        }
-
-        // 2. Отправляем на сервер
-        const response = await fetch(
-          `https://vue-third-coursework-default-rtdb.asia-southeast1.firebasedatabase.app/tasks/${taskId}.json`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              nameStatus: newStatus,
-            }),
-          }
-        );
-
-        if (!response.ok) throw new Error("Ошибка обновления статуса");
-
-        console.log("Статус успешно изменен");
-      } catch (error) {
-        console.error("Ошибка при изменении статуса:", error);
-        // Можно добавить откат изменений, если обновление на сервере не удалось
-      }
-    };
+    const { tasks, changeStatus } = useTaskStatus();
 
     // Вызываем при монтировании компонента
     onMounted(fetchTasks);

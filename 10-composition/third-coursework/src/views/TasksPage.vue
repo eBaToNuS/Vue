@@ -24,15 +24,16 @@
 
 <script>
 import AppStatus from "../components/AppStatus";
+
 import { useStore } from "vuex";
-import { ref, /* watch, */ onMounted, computed } from "vue";
+import { /* watch, */ ref, onMounted, computed } from "vue";
 import { useRouter /* useRoute */ } from "vue-router";
 export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const tasks = ref([]);
     // const route = useRoute();
-    const tasks = ref([]); // Реактивный массив для хранения задач
 
     // const active = ref("active");
     const fetchTasks = async () => {
@@ -68,12 +69,6 @@ export default {
       store.commit("SET_ACTIVE_TASKS", activeCount);
     };
     const taskIsActive = computed(() => store.getters.taskIsActive);
-    /*    watch(task, (newV) => {
-      console.log(newV);
-    }); */
-
-    // Вызываем при монтировании компонента
-
     onMounted(() => {
       fetchTasks().then(() => {
         updateActiveTasks();
