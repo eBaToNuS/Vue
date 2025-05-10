@@ -1,4 +1,4 @@
-import { useFetch } from "@/fetch";
+import { useFetch } from "./fetch";
 import { ref, Ref } from "vue";
 
 interface User {

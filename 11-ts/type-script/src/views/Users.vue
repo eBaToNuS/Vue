@@ -12,18 +12,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onErrorCaptured, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import UserList from "@/components/UserList.vue";
 
 export default defineComponent({
+  components: { UserList },
   setup() {
-    const error = ref<any>(null);
-    onErrorCaptured((e) => {
-      error.value = e;
-      return true;
-    });
+    const error = ref<Error | null>(null);
     return { error };
   },
-  components: { UserList },
 });
 </script>
